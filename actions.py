@@ -1,5 +1,5 @@
 from menu_auto import *
-import test_data
+
 
 driver = webdriver.Chrome()
 driver.maximize_window()
