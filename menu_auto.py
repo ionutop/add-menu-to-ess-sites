@@ -11,19 +11,19 @@ import time
 
 def element_id(d, selector):
     x = WebDriverWait(d, 10).until(
-        EC.presence_of_element_located((By.ID, selector)))
+        EC.visibility_of_element_located((By.ID, selector)))
     return x
 
 
 def element_selector(d, selector):
     x = WebDriverWait(d, 10).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, selector)))
+        EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
     return x
 
 
 def element_xpath(d, selector):
     x = WebDriverWait(d, 10).until(
-        EC.presence_of_element_located((By.XPATH, selector)))
+        EC.visibility_of_element_located((By.XPATH, selector)))
     return x
 
 
@@ -185,3 +185,55 @@ def add_meta_category(d, metaname, catname):
         print("metacategory " + metaname + " has been added")
     else:
         print("metacategory " + metaname + " has been added")
+
+
+def add_meta_to_menu(d, metacategory):
+    main_menu = element_selector(d, "#listGrid-main > tbody > tr:nth-child(1) > td:nth-child(1) > a")
+    main_menu.click()
+    if metacategory == "Point of Sale":
+        add_button = element_selector(d, "#menuItems > div.fieldgroup-listgrid-wrapper-header.titlebar.hidden-body > div.listgrid-toolbar > div.listgrid-toolbar-actions > button")
+        add_button.click()
+    else:
+        add_button = element_selector(d, "#menuItems > div.fieldgroup-listgrid-wrapper-header.titlebar > div.listgrid-toolbar > div.listgrid-toolbar-actions > button")
+        add_button.click()
+
+    menu_type_field = element_selector(d, "#field-type > div > div > input[type=text]")
+    menu_type_field.send_keys('Sub Menu')
+    actions = ActionChains(d)
+    actions.send_keys(Keys.ENTER)
+    actions.perform()
+    essentra_category_search = element_selector(d, "#field-essentraCategory > div > div > div > span > button.to-one-lookup-ess.secondary.button")
+    essentra_category_search.click()
+    search_meta_category = element_selector(d, "#tree-listgrid-search")
+    search_meta_category.send_keys(metacategory)
+    actions.send_keys(Keys.ENTER)
+    actions.perform()
+    time.sleep(1)
+    first_element = element_selector(d, "#listGrid-tree > tbody > tr")
+    first_element.click()
+    select_button = element_selector(d, "body > div.modal.in.xl > div.modal-footer > div > button")
+    select_button.click()
+    action_url = element_xpath(d, '//*[@id="fields\'actionUrl\'.value"]')
+
+    if metacategory == "Point of Sale":
+        action_url.send_keys("/point-of-sale")
+    elif metacategory == "Protection":
+        action_url.send_keys("/protection")
+    elif metacategory == "Hardware":
+        action_url.send_keys("/hardware")
+    else:
+        action_url.send_keys("/electronics")
+
+    search_sub_menu = element_selector(d, "#field-linkedMenu > div > div > div > span > button.to-one-lookup-ess.secondary.button")
+    search_sub_menu.click()
+    time.sleep(1)
+    path = "//tr[@data-hiddenfields='{\"hiddenFields\":[{\"name\":\"__adminMainEntity\",\"val\":\"" + metacategory + "\"}]}']"
+    print(path)
+    select_sub_menu = element_xpath(d, "//tr[@data-hiddenfields='{\"hiddenFields\":[{\"name\":\"__adminMainEntity\",\"val\":\"" + metacategory + "\"}]}']")
+    select_sub_menu.click()
+
+    select_button_2 = element_selector(d, "body > div:nth-child(27) > div.modal-footer > div > button")
+    select_button_2.click()
+    time.sleep(1)
+    save_button = element_selector(d, "body > div.modal.in > div.modal-footer > div > button")
+    save_button.click()

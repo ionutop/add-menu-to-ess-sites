@@ -1,58 +1,44 @@
 from menu_auto import *
 
 
-driver = webdriver.Chrome()
-driver.maximize_window()
-driver.get("https://testadmin.ecom.essentracomponents.com/admin/login")
-
-login(driver)
-
 # CREATE MAIN MENU
-go_to_menu_page(driver)
-add_main_menu(driver)
-save(driver)
-promote(driver)
-time.sleep(3)
-approve(driver)
+def create_main_menu(d):
+    go_to_menu_page(d)
+    add_main_menu(d)
+    save(d)
+    promote(d)
+    time.sleep(3)
+    approve(d)
+
 
 # CREATE PROTECTION META CATEGORY
-go_to_menu_page(driver)
-add_meta_category(driver, "Protection", "/Caps")
-time.sleep(3)
-save(driver)
-time.sleep(3)
-promote(driver)
-time.sleep(3)
-approve(driver)
+def create_meta_category(d, name, link):
+    go_to_menu_page(d)
+    add_meta_category(d, name, link)
+    time.sleep(3)
+    save(d)
+    time.sleep(3)
+    promote(d)
+    time.sleep(3)
+    approve(d)
 
-# CREATE POINT OF SALE META CATEGORY
-go_to_menu_page(driver)
-add_meta_category(driver, "Point of Sale", "/Tapes")
-time.sleep(5)
-save(driver)
-time.sleep(3)
-promote(driver)
-time.sleep(3)
-approve(driver)
 
-# CREATE HARDWARE META CATEGORY
-go_to_menu_page(driver)
-add_meta_category(driver, "Hardware", "/feet-castors-glides")
-time.sleep(3)
-save(driver)
-time.sleep(3)
-promote(driver)
-time.sleep(3)
-approve(driver)
-
-# CREATE ELECTRONICS META CATEGORY
-go_to_menu_page(driver)
-add_meta_category(driver, "Electronics", "/cable-management")
-time.sleep(3)
-save(driver)
-time.sleep(3)
-promote(driver)
-time.sleep(3)
-approve(driver)
-
-#driver.close()
+# ADD META TO MENU
+def add_meta_to_main_menu(d):
+    go_to_menu_page(d)
+    add_meta_to_menu(d, "Point of Sale")
+    time.sleep(2)
+    go_to_menu_page(d)
+    add_meta_to_menu(d, "Protection")
+    time.sleep(2)
+    go_to_menu_page(d)
+    add_meta_to_menu(d, "Hardware")
+    time.sleep(2)
+    go_to_menu_page(d)
+    add_meta_to_menu(d, "Electronics")
+    time.sleep(2)
+    promote(d)
+    time.sleep(2)
+    approve(d)
+    time.sleep(2)
+    d.close()
