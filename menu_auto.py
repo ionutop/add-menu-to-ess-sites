@@ -115,7 +115,6 @@ def add_meta_category(d, metaname, catname):
     save_popup_button = element_selector(d, "body > div.modal.in > div.modal-footer > div > button")
     save_popup_button.click()
     time.sleep(3)
-    print()
 
     if metaname == "Electronics":
         name_field.clear()
@@ -188,7 +187,7 @@ def add_meta_category(d, metaname, catname):
 
 
 def add_meta_to_menu(d, metacategory):
-    main_menu = element_selector(d, "#listGrid-main > tbody > tr:nth-child(1) > td:nth-child(1) > a")
+    main_menu = element_xpath(d, '//a[contains(text(), "Main Menu") and @class="list-grid-primary-field"]')
     main_menu.click()
     if metacategory == "Point of Sale":
         add_button = element_selector(d, "#menuItems > div.fieldgroup-listgrid-wrapper-header.titlebar.hidden-body > div.listgrid-toolbar > div.listgrid-toolbar-actions > button")
@@ -228,7 +227,6 @@ def add_meta_to_menu(d, metacategory):
     search_sub_menu.click()
     time.sleep(1)
     path = "//tr[@data-hiddenfields='{\"hiddenFields\":[{\"name\":\"__adminMainEntity\",\"val\":\"" + metacategory + "\"}]}']"
-    print(path)
     select_sub_menu = element_xpath(d, "//tr[@data-hiddenfields='{\"hiddenFields\":[{\"name\":\"__adminMainEntity\",\"val\":\"" + metacategory + "\"}]}']")
     select_sub_menu.click()
 

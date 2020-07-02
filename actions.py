@@ -1,4 +1,5 @@
 from menu_auto import *
+from test_data import *
 
 
 # CREATE MAIN MENU
@@ -28,9 +29,12 @@ def add_meta_to_main_menu(d):
     go_to_menu_page(d)
     add_meta_to_menu(d, "Point of Sale")
     time.sleep(2)
-    go_to_menu_page(d)
-    add_meta_to_menu(d, "Protection")
-    time.sleep(2)
+    if locale != "us" and locale != "ca":
+        go_to_menu_page(d)
+        add_meta_to_menu(d, "Protection")
+        time.sleep(2)
+    else:
+        pass
     go_to_menu_page(d)
     add_meta_to_menu(d, "Hardware")
     time.sleep(2)
