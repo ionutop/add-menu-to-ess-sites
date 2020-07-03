@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import test_data
 import time
+from test_data import locale
 
 
 def element_id(d, selector):
@@ -181,14 +182,15 @@ def add_meta_category(d, metaname, catname):
         save_popup_button = element_selector(d, "body > div.modal.in > div.modal-footer > div > button")
         save_popup_button.click()
 
-        print("metacategory " + metaname + " has been added")
+        print(locale + " metacategory " + metaname + " has been added")
     else:
-        print("metacategory " + metaname + " has been added")
+        print(locale + " metacategory " + metaname + " has been added")
 
 
 def add_meta_to_menu(d, metacategory):
     main_menu = element_xpath(d, '//a[contains(text(), "Main Menu") and @class="list-grid-primary-field"]')
     main_menu.click()
+
     if metacategory == "Point of Sale":
         add_button = element_selector(d, "#menuItems > div.fieldgroup-listgrid-wrapper-header.titlebar.hidden-body > div.listgrid-toolbar > div.listgrid-toolbar-actions > button")
         add_button.click()
@@ -201,17 +203,22 @@ def add_meta_to_menu(d, metacategory):
     actions = ActionChains(d)
     actions.send_keys(Keys.ENTER)
     actions.perform()
+
     essentra_category_search = element_selector(d, "#field-essentraCategory > div > div > div > span > button.to-one-lookup-ess.secondary.button")
     essentra_category_search.click()
+
     search_meta_category = element_selector(d, "#tree-listgrid-search")
     search_meta_category.send_keys(metacategory)
     actions.send_keys(Keys.ENTER)
     actions.perform()
     time.sleep(1)
+
     first_element = element_selector(d, "#listGrid-tree > tbody > tr")
     first_element.click()
+
     select_button = element_selector(d, "body > div.modal.in.xl > div.modal-footer > div > button")
     select_button.click()
+
     action_url = element_xpath(d, '//*[@id="fields\'actionUrl\'.value"]')
 
     if metacategory == "Point of Sale":
@@ -226,12 +233,15 @@ def add_meta_to_menu(d, metacategory):
     search_sub_menu = element_selector(d, "#field-linkedMenu > div > div > div > span > button.to-one-lookup-ess.secondary.button")
     search_sub_menu.click()
     time.sleep(1)
-    path = "//tr[@data-hiddenfields='{\"hiddenFields\":[{\"name\":\"__adminMainEntity\",\"val\":\"" + metacategory + "\"}]}']"
+
     select_sub_menu = element_xpath(d, "//tr[@data-hiddenfields='{\"hiddenFields\":[{\"name\":\"__adminMainEntity\",\"val\":\"" + metacategory + "\"}]}']")
     select_sub_menu.click()
 
     select_button_2 = element_selector(d, "body > div:nth-child(27) > div.modal-footer > div > button")
     select_button_2.click()
     time.sleep(1)
+
     save_button = element_selector(d, "body > div.modal.in > div.modal-footer > div > button")
     save_button.click()
+
+    print(locale + "metacategory" + metacategory + "has been added to menu")
