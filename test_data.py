@@ -1,5 +1,5 @@
 super_user = 'admin'
-def_password = 'sn8Ntra19*$'
+def_password = ''
 locale = 'us'
 
 user = super_user + locale
