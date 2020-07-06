@@ -182,9 +182,9 @@ def add_meta_category(d, metaname, catname):
         save_popup_button = element_selector(d, "body > div.modal.in > div.modal-footer > div > button")
         save_popup_button.click()
 
-        print(locale + " metacategory " + metaname + " has been added")
+        print(locale + " metacategory " + metaname + " has been created")
     else:
-        print(locale + " metacategory " + metaname + " has been added")
+        print(locale + " metacategory " + metaname + " has been created")
 
 
 def add_meta_to_menu(d, metacategory):
