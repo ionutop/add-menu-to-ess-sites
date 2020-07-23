@@ -7,7 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import test_data
 import time
-from test_data import locale
 
 
 def element_id(d, selector):
@@ -28,10 +27,11 @@ def element_xpath(d, selector):
     return x
 
 
-def login(d):
+def login(d, loc):
     username = element_id(d, "username")
     username.clear()
-    username.send_keys(test_data.user)
+    username.send_keys(test_data.super_user + loc)
+    print(test_data.super_user + loc)
 
     password = element_id(d, "password")
     password.clear()
@@ -63,7 +63,7 @@ def approve(d):
 
 
 def go_to_menu_page(d):
-    d.get('https://testadmin.ecom.essentracomponents.com/admin/menu')
+    d.get(test_data.admin + '/menu')
 
 
 def add_main_menu(d):
@@ -77,7 +77,7 @@ def add_main_menu(d):
     essentra_main_menu_checkbox.click()
 
 
-def add_meta_category(d, metaname, catname):
+def add_meta_category(d, metaname, catname, loc):
     add_menu_button = element_selector(d, "body > div.app-content > div.content > div.section-content.sandboxed > div.main-content > div.sticky-container > div > button")
     add_menu_button.click()
 
@@ -182,22 +182,22 @@ def add_meta_category(d, metaname, catname):
         save_popup_button = element_selector(d, "body > div.modal.in > div.modal-footer > div > button")
         save_popup_button.click()
 
-        print(locale + " metacategory " + metaname + " has been created")
+        print(loc + " metacategory " + metaname + " has been created")
     else:
-        print(locale + " metacategory " + metaname + " has been created")
+        print(loc + " metacategory " + metaname + " has been created")
 
 
-def add_meta_to_menu(d, metacategory):
+def add_meta_to_menu(d, metacategory, loc):
     main_menu = element_xpath(d, '//a[contains(text(), "Main Menu") and @class="list-grid-primary-field"]')
     main_menu.click()
-
+    time.sleep(2)
     if metacategory == "Point of Sale":
         add_button = element_selector(d, "#menuItems > div.fieldgroup-listgrid-wrapper-header.titlebar.hidden-body > div.listgrid-toolbar > div.listgrid-toolbar-actions > button")
         add_button.click()
     else:
         add_button = element_selector(d, "#menuItems > div.fieldgroup-listgrid-wrapper-header.titlebar > div.listgrid-toolbar > div.listgrid-toolbar-actions > button")
         add_button.click()
-
+    time.sleep(2)
     menu_type_field = element_selector(d, "#field-type > div > div > input[type=text]")
     menu_type_field.send_keys('Sub Menu')
     actions = ActionChains(d)
@@ -244,4 +244,4 @@ def add_meta_to_menu(d, metacategory):
     save_button = element_selector(d, "body > div.modal.in > div.modal-footer > div > button")
     save_button.click()
 
-    print(locale + "metacategory" + metacategory + "has been added to menu")
+    print(loc + "metacategory" + metacategory + "has been added to menu")

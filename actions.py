@@ -13,9 +13,9 @@ def create_main_menu(d):
 
 
 # CREATE PROTECTION META CATEGORY
-def create_meta_category(d, name, link):
+def create_meta_category(d, name, link, loc):
     go_to_menu_page(d)
-    add_meta_category(d, name, link)
+    add_meta_category(d, name, link, loc)
     time.sleep(3)
     save(d)
     time.sleep(3)
@@ -25,24 +25,24 @@ def create_meta_category(d, name, link):
 
 
 # ADD META TO MENU
-def add_meta_to_main_menu(d):
+def add_meta_to_main_menu(d, loc):
     go_to_menu_page(d)
-    add_meta_to_menu(d, "Point of Sale")
+    add_meta_to_menu(d, "Point of Sale", loc)
     time.sleep(2)
-    if locale != "us" and locale != "ca":
+    if loc != "us" and loc != "ca":
         go_to_menu_page(d)
-        add_meta_to_menu(d, "Protection")
+        add_meta_to_menu(d, "Protection", loc)
         time.sleep(2)
     else:
         pass
     go_to_menu_page(d)
-    add_meta_to_menu(d, "Hardware")
+    add_meta_to_menu(d, "Hardware", loc)
     time.sleep(2)
     go_to_menu_page(d)
-    add_meta_to_menu(d, "Electronics")
+    time.sleep(2)
+    add_meta_to_menu(d, "Electronics", loc)
     time.sleep(2)
     promote(d)
     time.sleep(2)
     approve(d)
-    time.sleep(2)
-    d.close()
+

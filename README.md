@@ -6,7 +6,6 @@ Requirements
 - install chromedriver for python
 
 
-set 'locale' in test_data for the desired locale
 run run.py
 
 
