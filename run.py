@@ -11,13 +11,14 @@ for loc in all_locales:
 
     create_main_menu(driver)
 
-    if loc != "us" and loc != "ca":
+    if loc != "us" and loc != "ca" and loc != "reidus":
         create_meta_category(driver, "Protection", "/Caps", loc)
     else:
         pass
-
-    create_meta_category(driver, "Point of Sale", "/Tapes", loc)
-
+    if loc != "reidus":
+        create_meta_category(driver, "Point of Sale", "/Tapes", loc)
+    else:
+        pass
     create_meta_category(driver, "Hardware", "/feet-castors-glides", loc)
 
     create_meta_category(driver, "Electronics", "/cable-management", loc)

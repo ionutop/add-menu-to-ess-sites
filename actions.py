@@ -6,7 +6,9 @@ from test_data import *
 def create_main_menu(d):
     go_to_menu_page(d)
     add_main_menu(d)
+    time.sleep(2)
     save(d)
+    time.sleep(2)
     promote(d)
     time.sleep(3)
     approve(d)
@@ -26,13 +28,16 @@ def create_meta_category(d, name, link, loc):
 
 # ADD META TO MENU
 def add_meta_to_main_menu(d, loc):
-    go_to_menu_page(d)
-    add_meta_to_menu(d, "Point of Sale", loc)
-    time.sleep(2)
-    if loc != "us" and loc != "ca":
+    if loc != "reidus":
         go_to_menu_page(d)
-        add_meta_to_menu(d, "Protection", loc)
+        add_meta_to_menu(d, "Point of Sale", loc)
         time.sleep(2)
+        if loc != "us" and loc != "ca":
+            go_to_menu_page(d)
+            add_meta_to_menu(d, "Protection", loc)
+            time.sleep(2)
+        else:
+            pass
     else:
         pass
     go_to_menu_page(d)
