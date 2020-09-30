@@ -48,6 +48,6 @@ def add_meta_to_main_menu(d, loc):
     add_meta_to_menu(d, "Electronics", loc)
     time.sleep(2)
     promote(d)
-    time.sleep(2)
+    time.sleep(4)
     approve(d)
 
